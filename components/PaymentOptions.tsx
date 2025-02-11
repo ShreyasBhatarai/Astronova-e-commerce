@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react'
 
 const PaymentOptions = () => {
@@ -5,7 +6,7 @@ const PaymentOptions = () => {
     const [selectedPayment, setSelectedPayment] = useState("connect-ips");
 
   return (
-    <div className="flex gap-3 ">
+    <div className="flex gap-1 md:gap-3 ">
                 <label className="flex items-center space-x-2">
                   <input
                     type="radio"
