@@ -1,101 +1,133 @@
-import Image from "next/image";
+"use client"
+import Image from "next/image"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import Timer from "@/components/Timer"
+import CopyButton from "@/components/ui/CopyButton";
+import PaymentOptions from "@/components/PaymentOptions"
 
-export default function Home() {
+
+export default function CheckoutPage() {
+ 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen bg-[#FAFAFA]">
+     
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <main className="container mx-auto px-4 py-8">
+        <div className="flex items-center text-sm text-[#737373] mb-8">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">Shop</BreadcrumbLink>
+              </BreadcrumbItem>
+
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Payment Section */}
+          <div className="bg-white p-6 rounded-lg shadow-sm">
+            <h2 className="text-2xl font-bold text-[#252b42] mb-6">Payment</h2>
+            <div className="space-y-4">
+              <p className="text-[#737373] mb-4">Pay With:</p>
+                    <PaymentOptions/>
+
+              <div className="mt-8 text-center">
+                <p className="text-[#737373] mb-2">Transfer USD49.80 to:</p>
+                <p className="text-lg font-bold text-[#252b42] mb-1">Polaris Bank</p>
+                <div className="flex items-center justify-center space-x-2 mb-4">
+                  <span className="text-xl font-mono text-black">0123456781</span>
+                  <CopyButton text="0123456781" />
+                </div>
+                
+                <div className="flex gap-3 w-full justify-center">
+                <p className="text-[#737373]">
+                  Expires in</p> <Timer minutes={10} /> <p className="text-[#737373]">minutes
+                </p>
+                </div>
+              </div>
+              <Link href={'/payment'}>
+              <  Button className="w-full bg-[#23a6f0] text-white py-4 rounded-md hover:bg-[#252b42] transition-colors mt-8" >
+                Confirm Payment
+              </  Button>
+              </Link>
+
+              <p className="text-xs text-[#737373] mt-4">
+                Your personal data will be used to process your order, support your experience throughout this website,
+                and for other purposes described in our privacy policy.
+              </p>
+            </div>
+          </div>
+
+          {/* Order Summary Section */}
+          <div className="bg-[#FAFAFA] p-6 rounded-lg shadow-sm">
+            <h2 className="text-2xl font-bold text-[#252b42] mb-6">Order Summary</h2>
+            <div className="space-y-6">
+              <div className="flex items-center space-x-4">
+                <Image
+                  src={`https://s3-alpha-sig.figma.com/img/738b/fd0a/9db595bcdea232302f89c006698b27cc?Expires=1739750400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=LuYt8MyHl5Eko1PIkuaQqgk-KQ4O7b1P~RUWbXG3Un7ktWgEfISU919oW0vx9jp2Eb1oonvqzaZzTix8F-wEtO1FsYdUk4ig4DZYTfLr0lzZzhrez0jk6CtFKSd56YTOlbjuJ5qQfY33AtgMpP6nF4Gi8B0KEain7MEzPMjkPy9GQ4IQoFUbOL3KIZLEyyM3faaWf30B18z-tQEfIRlhLWRJZPxrsDnPcju4cJhjEfl0O~lKwAir82GTa6zUjHS0ol0FKVO4qdd3Cd7Hu0yUuXdQ08AzytJ6oL2f4~-6wAk0BIwrLxnWBDnf~LhWaxfwkE1oVxcPBHAecE6udpZsCQ__`}
+                  alt="Product"
+                  width={80}
+                  height={80}
+                  className="rounded-lg"
+                />
+                <div className="flex-1">
+                  <h3 className="font-medium text-[#252b42]">Product name</h3>
+                  <p className="text-sm text-[#737373]">Description</p>
+                </div>
+                <div className="text-right">
+                  <p className="font-medium text-[#252b42]">$49.80</p>
+                  <p className="text-sm text-[#737373]">Qty: 2</p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex">
+                  <input
+                    type="text"
+                    placeholder="Gift or discount code"
+                    className="flex-1 border rounded-l-md px-1 mx-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#23a6f0]"
+                  />
+                  <  Button className="bg-[#23a6f0] text-white px-6 py-2 rounded-r-md hover:bg-[#252b42] transition-colors">
+                    Apply
+                  </  Button>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex justify-between text-[#737373]">
+                    <span>Subtotal</span>
+                    <span>$49.80</span>
+                  </div>
+                  <div className="flex justify-between text-[#737373]">
+                    <span>Shipping</span>
+                    <span>$7.24</span>
+                  </div>
+                  <div className="flex justify-between font-medium text-[#252b42] pt-2 border-t">
+                    <span>Total</span>
+                    <div className="text-right">
+                      <span className="text-xl">$59.28</span>
+                      <p className="text-xs text-[#737373]">Including $2.24 in taxes</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
-  );
+  )
 }
+
